@@ -1,6 +1,6 @@
 # Weather Dashboard
 
-A FastAPI + Jinja2 dashboard that displays a 7-day weather forecast for San Francisco using the Open-Meteo API.
+A FastAPI + Jinja2 dashboard that displays a 7-day weather forecast for Lahore using the Open-Meteo API.
 
 ## Setup
 
