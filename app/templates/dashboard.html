@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}{{ city }} — Weather Dashboard{% endblock %}
+
+{% block content %}
+<h2>{{ city }}</h2>
+
+<section class="cards">
+    <div class="card">
+        <span class="card-label">Temperature</span>
+        <span class="card-value">{{ current_temp }}&deg;C</span>
+    </div>
+    <div class="card">
+        <span class="card-label">Wind Speed</span>
+        <span class="card-value">{{ current_windspeed }} km/h</span>
+    </div>
+    <div class="card">
+        <span class="card-label">Humidity</span>
+        <span class="card-value">{{ current_humidity }}%</span>
+    </div>
+</section>
+
+<section class="charts">
+    <div class="chart-container">
+        <canvas id="tempChart"></canvas>
+    </div>
+    <div class="chart-container">
+        <canvas id="windChart"></canvas>
+    </div>
+</section>
+
+<script>
+    const dates = {{ dates | tojson }};
+
+    new Chart(document.getElementById('tempChart'), {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Max Temp (\u00b0C)',
+                    data: {{ temp_max | tojson }},
+                    borderColor: '#e74c3c',
+                    backgroundColor: 'rgba(231,76,60,0.1)',
+                    fill: true,
+                    tension: 0.3,
+                },
+                {
+                    label: 'Min Temp (\u00b0C)',
+                    data: {{ temp_min | tojson }},
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52,152,219,0.1)',
+                    fill: true,
+                    tension: 0.3,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            plugins: { title: { display: true, text: '7-Day Temperature Forecast' } },
+        },
+    });
+
+    new Chart(document.getElementById('windChart'), {
+        type: 'bar',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'Max Wind Speed (km/h)',
+                data: {{ windspeed | tojson }},
+                backgroundColor: '#2ecc71',
+            }],
+        },
+        options: {
+            responsive: true,
+            plugins: { title: { display: true, text: 'Daily Wind Speed' } },
+        },
+    });
+</script>
+{% endblock %}
