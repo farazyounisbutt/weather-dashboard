@@ -8,6 +8,9 @@
 {% if error %}
 <div class="error-banner">{{ error }}</div>
 {% endif %}
+{% if aqi_error %}
+<div class="error-banner">{{ aqi_error }}</div>
+{% endif %}
 
 <section class="cards">
     <div class="card">
@@ -21,6 +24,12 @@
     <div class="card">
         <span class="card-label">Humidity</span>
         <span class="card-value">{{ current_humidity }}%</span>
+    </div>
+    <div class="card card-aqi card-aqi--{{ aqi_label | lower | replace(' ', '-') }}">
+        <span class="card-label">Air Quality (EU AQI)</span>
+        <span class="card-value">{{ european_aqi if european_aqi is not none else '—' }}</span>
+        <span class="card-sublabel">{{ aqi_label }}</span>
+        <span class="card-detail">PM2.5: {{ pm2_5 if pm2_5 is not none else '—' }} · PM10: {{ pm10 if pm10 is not none else '—' }} µg/m³</span>
     </div>
 </section>
 

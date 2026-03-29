@@ -58,6 +58,27 @@ h2 {
     font-weight: 700;
 }
 
+/* AQI card */
+.card-sublabel {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+.card-detail {
+    display: block;
+    font-size: 0.75rem;
+    color: #888;
+    margin-top: 0.4rem;
+}
+
+.card-aqi--good       { border-left: 4px solid #2ecc71; }
+.card-aqi--fair       { border-left: 4px solid #f1c40f; }
+.card-aqi--poor       { border-left: 4px solid #e67e22; }
+.card-aqi--very-poor  { border-left: 4px solid #e74c3c; }
+.card-aqi--n\/a       { border-left: 4px solid #bbb; }
+
 /* Error banner */
 .error-banner {
     background: #fdecea;
