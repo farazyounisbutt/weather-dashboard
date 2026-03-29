@@ -5,6 +5,10 @@
 {% block content %}
 <h2>{{ city }}</h2>
 
+{% if error %}
+<div class="error-banner">{{ error }}</div>
+{% endif %}
+
 <section class="cards">
     <div class="card">
         <span class="card-label">Temperature</span>
@@ -31,6 +35,7 @@
 
 <script>
     const dates = {{ dates | tojson }};
+    if (dates.length === 0) { throw new Error('no data'); }
 
     new Chart(document.getElementById('tempChart'), {
         type: 'line',

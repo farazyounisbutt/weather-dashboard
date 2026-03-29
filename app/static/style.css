@@ -58,6 +58,16 @@ h2 {
     font-weight: 700;
 }
 
+/* Error banner */
+.error-banner {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
 /* Charts */
 .charts {
     display: grid;

@@ -25,10 +25,28 @@ DEFAULT_PARAMS = {
 
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request):
-    async with httpx.AsyncClient(timeout=10) as client:
-        resp = await client.get(OPEN_METEO_URL, params=DEFAULT_PARAMS)
-        resp.raise_for_status()
-        data = resp.json()
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.get(OPEN_METEO_URL, params=DEFAULT_PARAMS)
+            resp.raise_for_status()
+            data = resp.json()
+    except httpx.HTTPError as exc:
+        return templates.TemplateResponse(
+            "dashboard.html",
+            {
+                "request": request,
+                "city": "Lahore, Pakistan",
+                "error": f"Could not fetch weather data: {exc}",
+                "current_temp": None,
+                "current_windspeed": None,
+                "current_humidity": None,
+                "dates": [],
+                "temp_max": [],
+                "temp_min": [],
+                "windspeed": [],
+                "humidity": [],
+            },
+        )
 
     current = data.get("current_weather", {})
     daily = data.get("daily", {})
